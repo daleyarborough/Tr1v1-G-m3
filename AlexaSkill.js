@@ -1,24 +1,5 @@
-/**
- Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-
- http://aws.amazon.com/apache2.0/
-
- or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
- */
-
-/**
- * This sample shows how to create a simple Trivia skill with a multiple choice format. The skill
- * supports 1 player at a time, and does not support games across sessions.
- */
-
 'use strict';
 
-/**
- * When editing your questions pay attention to your punctuation. Make sure you use question marks or periods.
- * Make sure the first answer is the correct one. Set at least 4 answers, any extras will be shuffled in.
- */
 var questions = [
     {
         "How many flavors of icecream has Ben & Jerry's created?": [
@@ -118,11 +99,6 @@ exports.handler = function (event, context) {
     try {
         console.log("event.session.application.applicationId=" + event.session.application.applicationId);
 
-        /**
-         * Uncomment this if statement and populate with your skill's application ID to
-         * prevent someone else from configuring a skill that sends requests to this function.
-         */
-
 //     if (event.session.application.applicationId !== "amzn1.echo-sdk-ams.app.05aecccb3-1461-48fb-a008-822ddrt6b516") {
 //         context.fail("Invalid Application ID");
 //      }
@@ -159,7 +135,7 @@ function onSessionStarted(sessionStartedRequest, session) {
     console.log("onSessionStarted requestId=" + sessionStartedRequest.requestId
         + ", sessionId=" + session.sessionId);
 
-    // add any session init logic here
+    // Session init logic here
 }
 
 /**
@@ -218,22 +194,19 @@ function onIntent(intentRequest, session, callback) {
     }
 }
 
-/**
- * Called when the user ends the session.
- * Is not called when the skill returns shouldEndSession=true.
- */
+
 function onSessionEnded(sessionEndedRequest, session) {
     console.log("onSessionEnded requestId=" + sessionEndedRequest.requestId
         + ", sessionId=" + session.sessionId);
 
-    // Add any cleanup logic here
+    // Cleanup logic here
 }
 
 // ------- Skill specific business logic -------
 
 var ANSWER_COUNT = 4;
 var GAME_LENGTH = 5;
-var CARD_TITLE = "fun trivia game"; // Be sure to change this for your skill.
+var CARD_TITLE = "fun trivia game"; 
 
 function getWelcomeResponse(callback) {
     var sessionAttributes = {},
@@ -419,8 +392,7 @@ function handleRepeatRequest(intent, session, callback) {
 }
 
 function handleGetHelpRequest(intent, session, callback) {
-    // Provide a help prompt for the user, explaining how the game is played. Then, continue the game
-    // if there is one in progress, or provide the option to start another one.
+    // Game explanation for users
 
     // Set a flag to track that we're in the Help state.
     session.attributes.userPromptedToContinue = true;
